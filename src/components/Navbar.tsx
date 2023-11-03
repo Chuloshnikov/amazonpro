@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     <div
-    className='w-full h-20 border-b-[1px] border-b-zinc-500 bg-white text-zinc-600'
+    className='w-full h-20 border-b-[1px] border-b-zinc-500 bg-white text-zinc-600 sticky top-0 z-50 bg-white/80 backdrop-blur-lg'
     >
         <div
         className='max-w-screen-xl mx-auto h-full flex items-center justify-between px-4 xl:px-0'
@@ -87,7 +87,7 @@ const Navbar = () => {
                  className="hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold"
                 >
                     Login
-                    <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500" />
+                    <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500"/>
                 </button>
             </div>
 
