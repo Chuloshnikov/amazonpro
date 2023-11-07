@@ -1,8 +1,11 @@
 import Container from "./Container";
 import Link from 'next/link';
 import { PcCase, ScanFace, Smartphone, Watch } from "lucide-react";
+import Product from "./Product";
+import { getProducts } from "../helpers"
 
-const Products = () => {
+const Products = async () => {
+    const products = await getProducts();
   return (
     <div
     className='mt-10 mb-60'
@@ -31,8 +34,33 @@ const Products = () => {
                         <Smartphone/>
                         <p>Phone</p>
                     </Link>
+                    <div className="h-7 w-[1px] bg-designColor inline-flex"/>
+                    <Link
+                    href={"/phones"}
+                    className="flex gap-2 hover:text-black cursor-pointer duration-200"
+                    >
+                        <PcCase />
+                        <p>Phone Case</p>
+                    </Link>
+                    <div className="h-7 w-[1px] bg-designColor inline-flex"/>
+                    <Link
+                    href={"/phones"}
+                    className="flex gap-2 hover:text-black cursor-pointer duration-200"
+                    >
+                        <Watch />
+                        <p>Watches</p>
+                    </Link>
+                    <div className="h-7 w-[1px] bg-designColor inline-flex"/>
+                    <Link
+                    href={"/accessories"}
+                    className="flex gap-2 hover:text-black cursor-pointer duration-200"
+                    >
+                        <ScanFace />
+                        <p>Accessories</p>
+                    </Link>
                 </div>
             </div>
+            <Product products={products}/>
         </Container>
     </div>
   )
