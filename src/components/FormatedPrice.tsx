@@ -1,5 +1,4 @@
-import React from 'react';
-
+import { cn } from "@/lib/utils";
 
 type Props = {
     amount: number;
@@ -13,7 +12,11 @@ const FormatedPrice = ({amount, className}: Props) => {
         maximumFractionDigits: 2,
     });
   return (
-    <span>{formatedAmount}</span>
+    <span
+    className={cn("text-base text-black", className)}
+    >
+        {formatedAmount}
+    </span>
   )
 }
 
