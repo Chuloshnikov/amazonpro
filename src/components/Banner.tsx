@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import { sliderOne, sliderTwo, sliderThree } from "../assets";
 import Image from 'next/image';
@@ -8,6 +8,22 @@ import { Clock, Smartphone, Map, MailPlus } from "lucide-react";
 
 const Banner = () => {
         const [dotActive, setDotActive] = useState(0);
+        const [showSlider, setShowSlider] = useState(true);
+
+        useEffect(() => {
+          const handleResize = () => {
+            setShowSlider(window.innerWidth >= 1024);
+          };
+      
+          window.addEventListener('resize', handleResize);
+          handleResize();
+      
+          return () => {
+            window.removeEventListener('resize', handleResize);
+          };
+        }, []);
+
+
         var settings = {
           dots: true,
           infinite: true,
@@ -72,71 +88,95 @@ const Banner = () => {
 
   return (
     <div className="lg:min-h-screen relative">
-    <Slider {...settings}>
-      <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
-        <div className="w-full lg:w-1/3 hidden lg:inline-block h-full bg-designColor z-0 relative">
-          <Image
-            src={sliderOne}
-            alt="sliderone"
-            className="absolute object-cover right-0 lg:-right-48 lg:h-screen"
-            priority
-          />
-        </div>
-        <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
-          <p className="text-xl uppercase">Get the Best products for you</p>
-          <p className="w-96 text-center text-zinc-600">
-            Browse the latest phones in the Market and get the one you dreamt
-            for
-          </p>
-          <p className="text-2xl font-semibold">Phones in Demand</p>
-          <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
-            Select a Product
-          </button>
-        </div>
-      </div>
-      <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
-        <div className="w-full lg:w-1/3 hidden lg:inline-block h-full bg-[#fcb900] z-0 relative">
-          <Image
-            src={sliderTwo}
-            alt="sliderTwo"
-            className="absolute object-cover right-0 lg:-right-48 h-full"
-            loading="lazy"
-          />
-        </div>
-        <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
-          <p className="text-xl uppercase">Get the Best products for you</p>
-          <p className="w-96 text-center text-zinc-600">
-            Browse the latest t-shirt in the Market and get the one you dreamt
-            for
-          </p>
-          <p className="text-2xl font-semibold">T-shirt in Demand</p>
-          <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
-            Select a Product
-          </button>
-        </div>
-      </div>
-      <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
-        <div className="w-full lg:w-1/3 hidden lg:inline-block h-full bg-[#fcb900] z-0 relative">
-          <Image
-            src={sliderThree}
-            alt="sliderThree"
-            className="absolute object-cover right-0 lg:-right-80 h-full"
-            loading="lazy"
-          />
-        </div>
-        <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
-          <p className="text-xl uppercase">Get the Best products for you</p>
-          <p className="w-96 text-center text-zinc-600">
-            Browse the latest t-shirt in the Market and get the one you dreamt
-            for
-          </p>
-          <p className="text-2xl font-semibold">T-shirt in Demand</p>
-          <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
-            Select a Product
-          </button>
-        </div>
-      </div>
-    </Slider>
+       {showSlider ? (
+          <Slider {...settings}>
+          <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
+            <div className="w-full lg:w-1/3 hidden lg:inline-block h-full bg-designColor z-0 relative">
+              <Image
+                src={sliderOne}
+                alt="sliderone"
+                className="absolute object-cover right-0 lg:-right-48 lg:h-screen"
+                priority
+              />
+            </div>
+            <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
+              <p className="text-xl uppercase">Get the Best products for you</p>
+              <p className="w-96 text-center text-zinc-600">
+                Browse the latest phones in the Market and get the one you dreamt
+                for
+              </p>
+              <p className="text-2xl font-semibold">Phones in Demand</p>
+              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+                Select a Product
+              </button>
+            </div>
+          </div>
+          <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
+            <div className="w-full lg:w-1/3 hidden lg:inline-block h-full bg-[#fcb900] z-0 relative">
+              <Image
+                src={sliderTwo}
+                alt="sliderTwo"
+                className="absolute object-cover right-0 lg:-right-48 h-full"
+                loading="lazy"
+              />
+            </div>
+            <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
+              <p className="text-xl uppercase">Get the Best products for you</p>
+              <p className="w-96 text-center text-zinc-600">
+                Browse the latest t-shirt in the Market and get the one you dreamt
+                for
+              </p>
+              <p className="text-2xl font-semibold">T-shirt in Demand</p>
+              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+                Select a Product
+              </button>
+            </div>
+          </div>
+          <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
+            <div className="w-full lg:w-1/3 hidden lg:inline-block h-full bg-[#fcb900] z-0 relative">
+              <Image
+                src={sliderThree}
+                alt="sliderThree"
+                className="absolute object-cover right-0 lg:-right-80 h-full"
+                loading="lazy"
+              />
+            </div>
+            <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
+              <p className="text-xl uppercase">Get the Best products for you</p>
+              <p className="w-96 text-center text-zinc-600">
+                Browse the latest t-shirt in the Market and get the one you dreamt
+                for
+              </p>
+              <p className="text-2xl font-semibold">T-shirt in Demand</p>
+              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+                Select a Product
+              </button>
+            </div>
+          </div>
+        </Slider>
+       ) : (
+        <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
+            <div className="w-full hidden h-full bg-designColor z-0 relative">
+              <Image
+                src={sliderOne}
+                alt="sliderone"
+                className="absolute object-cover right-0 lg:-right-48 lg:h-screen"
+                priority
+              />
+            </div>
+            <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
+              <p className="text-xl uppercase">Get the Best products for you</p>
+              <p className="w-96 text-center text-zinc-600">
+                Browse the latest phones in the Market and get the one you dreamt
+                for
+              </p>
+              <p className="text-2xl font-semibold">Phones in Demand</p>
+              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+                Select a Product
+              </button>
+            </div>
+          </div>
+       )}
     <div className="h-20 bg-white absolute left-1/2 -bottom-10 transform -translate-x-1/2 hidden lg:inline-flex items-center gap-x-12 p-10">
       <div className="flex items-center gap-5 w-60">
         <Clock className="text-designColor w-8 h-8" />

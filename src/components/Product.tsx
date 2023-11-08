@@ -13,7 +13,7 @@ interface Item {
 const Product = ({ products }: Item) => {
   return (
     <div
-    className='grid grid-cols-1 md:grid-cils-2 xl:grid-cols-4 gap-6 mt-10'
+    className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-10'
     >
         {products?.map((item) => (
                 <div

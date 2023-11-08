@@ -15,7 +15,7 @@ const Products = async () => {
             className='flex flex-col gap-2 items-center'
             >
                 <h2
-                className='text-3xl font-semibold'
+                className='hidden sm:inline-flex text-3xl font-semibold'
                 >
                     Chose a category
                 </h2>
@@ -25,7 +25,7 @@ const Products = async () => {
                     Explore dezens of customized layouts made by our brilrant designers
                 </p>
                 <div
-                className="text-zinc-500 flex items-center gap-2 md:gap-6 mt-5"
+                className="text-zinc-500 flex items-center gap-2 md:gap-6 mt-5 hidden sm:inline-flex"
                 >
                     <Link
                     href={"/phones"}
