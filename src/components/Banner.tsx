@@ -155,18 +155,10 @@ const Banner = () => {
           </div>
         </Slider>
        ) : (
-        <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
-            <div className="w-full hidden h-full bg-designColor z-0 relative">
-              <Image
-                src={sliderOne}
-                alt="sliderone"
-                className="absolute object-cover right-0 lg:-right-48 lg:h-screen"
-                priority
-              />
-            </div>
-            <div className="lg:absolute lg:top-1/2 lg:left-2/3 transform lg:-translate-x-1/2 lg:-translate-y-1/2 flex flex-col items-center gap-5">
+        <div className="w-full py-32 bg-slate-200">
+            <div className="flex flex-col items-center gap-5 px-2">
               <p className="text-xl uppercase">Get the Best products for you</p>
-              <p className="w-96 text-center text-zinc-600">
+              <p className="text-center text-zinc-600">
                 Browse the latest phones in the Market and get the one you dreamt
                 for
               </p>
