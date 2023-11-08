@@ -6,7 +6,7 @@ import Logo from './Logo';
 const Footer = () => {
   return (
     <div
-    className="bg-[#180735] mt-10 py-10 text-zinc-300"
+    className="bg-[#180735] mt-10 py-2 md:py-10 text-zinc-300"
     >
         <Container
         className="flex flex-col md:flex-row gap-y-2 items-center justify-between"
