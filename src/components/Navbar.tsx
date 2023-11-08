@@ -1,14 +1,15 @@
 "use client"
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
 import Link from 'next/link';
-import { Heart, ShoppingBagIcon } from 'lucide-react';
+import { Heart, ShoppingBagIcon, Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { navigation } from '@/constants/data';
 
 const Navbar = () => {
     const pathname = usePathname();
+    const [openMenu, setOpenMenu] = useState<boolean>(false);
 
     console.log(pathname);
 
@@ -25,11 +26,12 @@ const Navbar = () => {
             {/*Logo*/}
             <Logo/>
             {/*Navigation*/}
-            <ul
-            className='hidden md:flex items-center gap-5 text-sm uppercase font-semibold'
-            >
-                {
-                    navigation.map((item) => (
+            <nav>
+              <ul
+              className='hidden md:flex items-center gap-5 text-sm uppercase font-semibold'
+              >
+                  {
+                      navigation.map((item) => (
                         <Link href={item?.href} key={item?._id}>
                         <li
                           className={`hover:text-black cursor-pointer duration-200 relative overflow-hidden group ${
@@ -45,8 +47,50 @@ const Navbar = () => {
                         </li>
                       </Link>
                     ))
-                }
-            </ul>
+                  }
+              </ul>
+              {openMenu && (
+                <div
+                className='z-50 absolute top-0 right-0 h-screen w-screen bg-zinc-100 flex flex-col gap-5'
+                >
+                  <button
+                  onClick={() => setOpenMenu(!openMenu)}
+                  className='flex justify-end my-6 mx-4'
+                  >
+                    <X
+                    className='w-7 h-7'
+                    />
+                  </button>
+                      <ul
+                      className='text-2xl flex flex-col gap-5 items-center px-20'
+                      >
+                      <li
+                      className=""
+                        >
+                        Login
+                        <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500"/>
+                    </li>
+                      {
+                        navigation.map((item) => (
+                          <Link 
+                          onClick={() => setOpenMenu(!openMenu)}
+                          href={item?.href} 
+                          key={item?._id}
+                          >
+                          <li
+                          >
+                            {item?.title}
+                            <span/>
+                          </li>
+                        </Link>
+                      ))
+                      }
+                    </ul>
+                </div>
+                  
+                  )
+            }
+            </nav>
             {/*icons*/}
             <div
             className="flex items-center gap-x-5"
@@ -78,10 +122,18 @@ const Navbar = () => {
                 </span>
                 </Link>
                 <button
-                 className="hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold"
+                 className="hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold hidden lg:block"
                 >
                     Login
                     <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500"/>
+                </button>
+                <button
+                className='lg:hidden'
+                onClick={() => setOpenMenu(!openMenu)}
+                >
+                      <Menu
+                      className='w-7 h-7'
+                      />
                 </button>
             </div>
 
