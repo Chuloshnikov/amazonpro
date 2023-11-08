@@ -5,20 +5,14 @@ import Logo from './Logo';
 import Link from 'next/link';
 import { Heart, ShoppingBagIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { navigation } from '@/constants/data';
 
 const Navbar = () => {
     const pathname = usePathname();
 
     console.log(pathname);
 
-    const navigation = [
-        {_id: 910, title: "Home", href: "/"},
-        {_id: 911, title: "Phones", href: "/phones"},
-        {_id: 912, title: "Phone Cases", href: "/phonecases"},
-        {_id: 913, title: "Watches", href: "/watches"},
-        {_id: 914, title: "Accessories", href: "/accessories"}
-
-    ]
+    
 
 
   return (
@@ -35,8 +29,8 @@ const Navbar = () => {
             className='hidden md:flex items-center gap-5 text-sm uppercase font-semibold'
             >
                 {
-                    navigation.map((item, index) => (
-                        <Link href={item?.href} key={index}>
+                    navigation.map((item) => (
+                        <Link href={item?.href} key={item?._id}>
                         <li
                           className={`hover:text-black cursor-pointer duration-200 relative overflow-hidden group ${
                             item.href === pathname && "text-designColor"
