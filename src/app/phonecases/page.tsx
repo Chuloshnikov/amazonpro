@@ -1,9 +1,26 @@
-import React from 'react'
+import Product from '@/components/Product';
+import { getPhoneCases } from '@/helpers';
+import Container from '../../components/Container';
+import React from 'react';
 
-const PhoneCasesPage = () => {
+const PhonesCasesPage = async () => {
+  const products = await getPhoneCases();
   return (
-    <div>page</div>
+    <Container>
+        <div
+        className='border-b-[1px] border-b-zinc-400 pb-4 flex items-center justify-between'
+        >
+          <h2>Phone Cases</h2>
+          <p>Get the Phonecase you want</p>
+        </div>
+        <p
+        className='mt-4 text-zinc-500 font-semibold'
+        >
+          Showing all {products.length} results
+        </p>
+        <Product products={products}/>
+    </Container>
   )
 }
 
-export default PhoneCasesPage;
+export default PhonesCasesPage;
