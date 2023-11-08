@@ -1,13 +1,13 @@
 import Container from '@/components/Container';
 import Title from '@/components/Title';
-import React from 'react'
+import React from 'react';
 
-const CartPage = () => {
+const WishListPage = () => {
   return (
     <Container>
-        <Title title="Your Cart"/>
+        <Title title="Your Wishlist"/>
     </Container>
   )
 }
 
-export default CartPage;
+export default WishListPage;
