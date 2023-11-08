@@ -6,9 +6,11 @@ import Link from 'next/link';
 import { Heart, ShoppingBagIcon, Menu, X } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { navigation } from '@/constants/data';
+import { signIn, useSession } from 'next-auth/react';
 
 const Navbar = () => {
     const pathname = usePathname();
+    const { data: session } = useSession();
     const [openMenu, setOpenMenu] = useState<boolean>(false);
 
     console.log(pathname);
@@ -64,12 +66,30 @@ const Navbar = () => {
                       <ul
                       className='text-2xl flex flex-col gap-5 items-center px-20'
                       >
-                      <li
-                      className=""
-                        >
-                        Login
-                        <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500"/>
-                    </li>
+                        {session ? (
+                          <li>
+                            <Link
+                            onClick={() => setOpenMenu(!openMenu)}
+                            href={"/profile"}
+                            >
+                            Profile
+                            </Link>
+                          </li>
+                        ) : (
+                          <li
+                          onClick={() => signIn()}
+                            >
+                            <span
+                            onClick={() => setOpenMenu(!openMenu)}
+                            >
+                              Login
+                            </span>
+                            <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500"/>
+                          </li>
+                        )
+                      
+                      }
+                     
                       {
                         navigation.map((item) => (
                           <Link 
@@ -121,12 +141,25 @@ const Navbar = () => {
                     0
                 </span>
                 </Link>
-                <button
-                 className="hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold hidden lg:block"
-                >
+                {
+                  session ? (
+                    <Link
+                    className="hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold hidden lg:block"
+                    href={"/profile"}
+                    >
+                    Profile
+                    </Link>
+                  ) : (
+                    <button
+                    onClick={() => signIn()}
+                    className="hover:text-black cursor-pointer duration-200 relative overflow-hidden group text-sm uppercase font-semibold hidden lg:block"
+                    >
                     Login
                     <span className="absolute h-[1px] w-full bg-blue-700 left-0 bottom-0 -translate-x-[100%] group-hover:translate-x-0 transition-transform duration-500"/>
                 </button>
+                  )
+                }
+                
                 <button
                 className='lg:hidden'
                 onClick={() => setOpenMenu(!openMenu)}
