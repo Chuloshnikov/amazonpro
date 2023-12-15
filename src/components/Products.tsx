@@ -36,7 +36,7 @@ const Products = async () => {
                     </Link>
                     <div className="h-7 w-[1px] bg-designColor inline-flex"/>
                     <Link
-                    href={"/phones"}
+                    href={"/phonecases"}
                     className="flex gap-2 hover:text-black cursor-pointer duration-200"
                     >
                         <PcCase />
@@ -44,7 +44,7 @@ const Products = async () => {
                     </Link>
                     <div className="h-7 w-[1px] bg-designColor inline-flex"/>
                     <Link
-                    href={"/phones"}
+                    href={"/watches"}
                     className="flex gap-2 hover:text-black cursor-pointer duration-200"
                     >
                         <Watch />
