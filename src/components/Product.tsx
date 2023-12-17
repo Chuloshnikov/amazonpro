@@ -5,12 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Heart } from "lucide-react";
 import FormatedPrice from './FormatedPrice';
+import { useDispatch } from 'react-redux';
+import { addToCart, addToFavorite } from "@/redux/proSlice";
 
 interface Item {
     products: ProductType[];
   }
 
 const Product = ({ products }: Item) => {
+    const dispatch = useDispatch();
   return (
     <div
     className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mt-10'
@@ -49,6 +52,7 @@ const Product = ({ products }: Item) => {
                         className='flex items-center justify-between text-sm mt-2'
                         >
                             <button
+                            onClick={() => dispatch(addToCart(item))}
                             className="uppercase font-semibold hover:text-designColor duration-300"
                             >
                                 Add to cart
