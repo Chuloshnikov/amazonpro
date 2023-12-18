@@ -5,14 +5,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Heart } from "lucide-react";
 import FormatedPrice from './FormatedPrice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, addToFavorite } from "@/redux/proSlice";
+import toast, {Toaster, Toster} from "react-hot-toast";
 
 interface Item {
     products: ProductType[];
   }
 
 const Product = ({ products }: Item) => {
+    const { productData, favoriteData } = useSelector((state: StateProps) => state.pro);
+
+    const isFavorite = (productId: any) => {
+        return favoriteData.some((favoriteItem) => favoriteItem._id === productId);
+    }
+
     const dispatch = useDispatch();
   return (
     <div
@@ -32,7 +39,14 @@ const Product = ({ products }: Item) => {
                         />
                     </Link>
                     <Heart 
-                    fill="#fcb900"
+                    fill={isFavorite(item._id) ? "red" : "#fcb900"}
+                    onClick={() => {dispatch(addToFavorite(item));
+                    if (isFavorite(item?._id)) {
+                        toast.error(`${item.title} removed from favorites!`);
+                    } else {
+                        toast.success(`${item.title} added to favorites!`)
+                    }
+                    }}
                     className='absolute top-4 right-4 text-zinc-500 w-5 h-5 hover:text-black cursor-pointer duration-200'
                     />
                     <div
@@ -52,7 +66,7 @@ const Product = ({ products }: Item) => {
                         className='flex items-center justify-between text-sm mt-2'
                         >
                             <button
-                            onClick={() => dispatch(addToCart(item))}
+                            onClick={() => {dispatch(addToCart(item)), toast.success(`${item.title} is added to Cart!`)}}
                             className="uppercase font-semibold hover:text-designColor duration-300"
                             >
                                 Add to cart
@@ -67,6 +81,14 @@ const Product = ({ products }: Item) => {
                     </div>
                 </div>
             ))}
+            <Toaster position='bottom-right'
+            toastOptions={{
+                style: {
+                    background: "#000",
+                    color: '#fff'
+                }
+            }}
+            />
     </div>
   )
 }
