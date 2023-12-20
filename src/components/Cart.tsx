@@ -15,6 +15,9 @@ import FormatedPrice from './FormatedPrice';
 import { calculatePercentage } from '@/helpers';
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
+import {loadStripe} from '@stripe/stripe-js';
+import { useSession } from "next-auth/react";
+
 
 const Cart = () => {
     const [totalAmt, setTotalAmt] = useState(0);
@@ -22,6 +25,7 @@ const Cart = () => {
     const { productData, favoriteData } = useSelector((state: StateProps) => state.pro);
     const dispatch = useDispatch();
     const router = useRouter();
+    const { data: session } = useSession();
 
     const handleReset = () => {
         const confirmReset = window.confirm(
@@ -50,7 +54,29 @@ const Cart = () => {
     }, [productData]);
 
     // Stripe Payment
-
+    const stripePromise = loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+    );
+    const handleCheckout = async () => {
+        const stripe = await stripePromise;
+        const response = await fetch("http://localhost:3000/api/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: productData,
+            email: session?.user?.email,
+          }),
+        });
+        const data = await response.json();
+    
+        if (response.ok) {
+          // await dispatch(saveOrder({ order: productData, id: data.id }));
+          stripe?.redirectToCheckout({ sessionId: data.id });
+          // dispatch(resetCart());
+        } else {
+          throw new Error("Failed to create Stripe Payment");
+        }
+      };
 
   return (
     <>
