@@ -17,6 +17,8 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 
 const Cart = () => {
+    const [totalAmt, setTotalAmt] = useState(0);
+    const [rowPrice, setRowPrice] =useState(0);
     const { productData, favoriteData } = useSelector((state: StateProps) => state.pro);
     const dispatch = useDispatch();
     const router = useRouter();
@@ -30,7 +32,26 @@ const Cart = () => {
             toast.success('Cart Reset Successfully');
             router.push("/");
         }
-    }
+    };
+
+    // Price value
+    useEffect(() => {
+        let amt = 0;
+        let rowAmt = 0;
+        productData.map((item:ProductType) => {
+            amt += item.price * item.quantity;
+            return;
+        });
+        productData.map((item: ProductType) => {
+            rowAmt += item?.previousPrice * item?.quantity;
+        });
+        setTotalAmt(amt);
+        setRowPrice(rowAmt);
+    }, [productData]);
+
+    // Stripe Payment
+
+
   return (
     <>
         {productData.length > 0 ? (
@@ -134,9 +155,25 @@ const Cart = () => {
                 <p className='border-b-[1px] border-b-designColor py-1'>
                     Cart Summary
                 </p>
-                <p>
+                <p className='flex items-center justify-between'>
                     Total Items <span>{productData.length}</span>
                 </p>
+                <p className='flex items-center justify-between'>
+                    Price{" "} <span><FormatedPrice amount={rowPrice}/></span>
+                </p>
+                <p className='flex items-center justify-between'>
+                    Discount{" "} <span><FormatedPrice amount={rowPrice - totalAmt}/></span>
+                </p>
+                <p className='flex items-center justify-between'>
+                    Total Price{" "} <span><FormatedPrice amount={totalAmt}/></span>
+                </p>
+                <button
+                onClick={handleCheckout}
+                className='bg-zinc-800 text-zinc-200 my-2 py-2 uppercase text-center 
+                rounded-md font-semibold hover:bg-black hover:text-white duration-200'
+                >
+                    Proceed to Checkout
+                </button>
             </div>
         </div>
         ) : (
