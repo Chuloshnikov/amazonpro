@@ -34,8 +34,18 @@ export const proSlice = createSlice({
             }
         },
         addAllToCart: (state, action: PayloadAction<ProductType[]>) => {
-          state.productData = [...state.productData, ...action.payload];
-        },
+          action.payload.forEach((favoriteItem) => {
+              const existingProduct = state.productData.find(
+                  (productItem) => productItem._id === favoriteItem._id
+              );
+      
+              if (existingProduct) {
+                  existingProduct.quantity += favoriteItem.quantity;
+              } else {
+                  state.productData.push(favoriteItem);
+              }
+          });
+      },
         increaseQuantity: (state, action) => {
             const existingProduct = state.productData.find(
               (item: ProductType) => item._id === action.payload._id
@@ -116,5 +126,6 @@ export const {
   addToFavorite, 
   deleteFavorite, 
   resetFavorite,
+  addAllToCart
 } = proSlice.actions;
 export default proSlice.reducer;

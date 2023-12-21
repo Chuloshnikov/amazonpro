@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import { sliderOne, sliderTwo, sliderThree } from "../assets";
 import Image from 'next/image';
 import { Clock, Smartphone, Map, MailPlus } from "lucide-react";
+import Link from 'next/link';
 
 const Banner = () => {
         const [dotActive, setDotActive] = useState(0);
@@ -106,9 +107,11 @@ const Banner = () => {
                 for
               </p>
               <p className="text-2xl font-semibold">Phones in Demand</p>
-              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+              <Link href="#toproducts">
+                <button className="text-base font-medium text-white bg-designColor hover:bg-[#ddb74f] duration-200 rounded-md px-4 py-2">
                 Select a Product
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
@@ -127,9 +130,11 @@ const Banner = () => {
                 for
               </p>
               <p className="text-2xl font-semibold">T-shirt in Demand</p>
-              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+              <Link href="#toproducts">
+                <button className="text-base font-medium text-white bg-designColor hover:bg-[#ddb74f] duration-200 rounded-md px-4 py-2">
                 Select a Product
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
           <div className="w-full py-32 lg:py-0 lg:h-screen bg-slate-200 relative">
@@ -148,9 +153,11 @@ const Banner = () => {
                 for
               </p>
               <p className="text-2xl font-semibold">T-shirt in Demand</p>
-              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
+              <Link href="#toproducts">
+                <button className="text-base font-medium text-white bg-designColor hover:bg-[#ddb74f] duration-200 rounded-md px-4 py-2">
                 Select a Product
-              </button>
+                </button>
+              </Link>
             </div>
           </div>
         </Slider>
@@ -163,9 +170,11 @@ const Banner = () => {
                 for
               </p>
               <p className="text-2xl font-semibold">Phones in Demand</p>
-              <button className="text-base font-medium text-white bg-designColor rounded-md px-4 py-2">
-                Select a Product
-              </button>
+              <Link href="#toproducts">
+                <button className="text-base font-medium text-white bg-designColor hover:bg-[#ddb74f] duration-200 rounded-md px-4 py-2">
+                    Select a Product
+                </button>
+              </Link>
             </div>
           </div>
        )}

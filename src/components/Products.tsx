@@ -12,6 +12,7 @@ const Products = async () => {
     >
          <Container>
             <div
+            id="toproducts"
             className='flex flex-col gap-2 items-center'
             >
                 <h2
