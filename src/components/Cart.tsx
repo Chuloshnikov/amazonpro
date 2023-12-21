@@ -77,7 +77,7 @@ const Cart = () => {
           throw new Error("Failed to create Stripe Payment");
         }
       };
-
+ 
   return (
     <>
         {productData.length > 0 ? (

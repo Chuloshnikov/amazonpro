@@ -10,7 +10,7 @@ const SuccessPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(resetCart());
-    })
+    },[])
   return (
     <Container>
         <div className='min-h-[520px] flex flex-col items-center justify-center gap-y-5'>
