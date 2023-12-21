@@ -33,6 +33,9 @@ export const proSlice = createSlice({
                 state.productData.push(action.payload);
             }
         },
+        addAllToCart: (state, action: PayloadAction<ProductType[]>) => {
+          state.productData = [...state.productData, ...action.payload];
+        },
         increaseQuantity: (state, action) => {
             const existingProduct = state.productData.find(
               (item: ProductType) => item._id === action.payload._id
