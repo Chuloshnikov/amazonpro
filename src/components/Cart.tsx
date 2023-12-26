@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import {loadStripe} from '@stripe/stripe-js';
 import { useSession } from "next-auth/react";
+import axios from 'axios';
 
 
 const Cart = () => {
@@ -26,7 +27,10 @@ const Cart = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { data: session } = useSession();
-    console.log(productData)
+    console.log(totalAmt);
+    console.log(productData);
+    console.log(session?.user?.email);
+    console.log(session?.user?.name);
 
     const handleReset = () => {
         const confirmReset = window.confirm(
@@ -54,6 +58,28 @@ const Cart = () => {
         setRowPrice(rowAmt);
     }, [productData]);
 
+
+    //Order DB create
+    
+
+    const createOrder = async () => {
+           try {
+            const res = await axios.post("http://localhost:3000/api/order", 
+            {
+                productData,
+                clientName: session?.user?.name,
+                clientEmail: session?.user?.email,
+                amount: totalAmt,
+                status: 0
+            });
+            if (res.status === 201) {
+                console.log(res.status)
+              }
+           } catch (err) {
+            console.log(err);
+        }
+        }
+
     // Stripe Payment
     const stripePromise = loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -72,8 +98,9 @@ const Cart = () => {
     
         if (response.ok) {
           // await dispatch(saveOrder({ order: productData, id: data.id }));
+          createOrder();  
           stripe?.redirectToCheckout({ sessionId: data.id });
-          // dispatch(resetCart());
+          dispatch(resetCart());
         } else {
           throw new Error("Failed to create Stripe Payment");
         }
