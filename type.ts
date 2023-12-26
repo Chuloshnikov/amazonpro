@@ -26,3 +26,11 @@ export interface StateProps {
         favoriteData: ProductType[];
     };
 }
+
+export interface OrderData {
+clientName: string;
+clientEmail: string;
+productData: ProductType[];
+amount: number;
+status: number;
+}

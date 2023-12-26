@@ -7,9 +7,7 @@ import React from 'react';
 const ProfileInfo = () => {
     const { data: session } = useSession();
   return (
-    <div
-    className='h-screen'
-    >
+    <>
         <div
         className='flex items-center gap-4'
         >
@@ -27,10 +25,10 @@ const ProfileInfo = () => {
         </div>
         <button 
         onClick={() => signOut()}
-        className='bg-zinc-950 text-zinc-200 px-8 py-3 font-semibold mt-10 hover:bg-designColor hover:text-black duraton-200 rounded-sm'>
+        className='bg-zinc-950 text-zinc-200 px-8 py-3 font-semibold mt-10 hover:bg-designColor hover:text-black duration-200 rounded-sm'>
             Signout
         </button>
-    </div>
+    </>
   )
 }
 
