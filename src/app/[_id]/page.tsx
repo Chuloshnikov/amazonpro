@@ -19,7 +19,6 @@ const ProductPage = async ({searchParams}: Props) => {
     };
 
     const product = singleProduct(_id);
-    console.log(products);
 
   return (
     <Container

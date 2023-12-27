@@ -18,6 +18,8 @@ import Link from 'next/link';
 import {loadStripe} from '@stripe/stripe-js';
 import { useSession } from "next-auth/react";
 import axios from 'axios';
+import flatted from 'flatted';
+import { OrderData } from '../../type';
 
 
 const Cart = () => {
@@ -27,10 +29,8 @@ const Cart = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { data: session } = useSession();
-    console.log(totalAmt);
-    console.log(productData);
-    console.log(session?.user?.email);
-    console.log(session?.user?.name);
+    const [order, setOrder] = useState(null);
+
 
     const handleReset = () => {
         const confirmReset = window.confirm(
@@ -59,32 +59,40 @@ const Cart = () => {
     }, [productData]);
 
 
+
     //Order DB create
     
+    const orderData = {
+        productData: productData,
+        clientName: session?.user?.name,
+        clientEmail: session?.user?.email,
+        amount: totalAmt,
+        status: 0
+    };
+    
+    console.log(orderData);
 
-    const createOrder = async () => {
-           try {
-            const res = await axios.post("http://localhost:3000/api/order", 
-            {
-                productData,
-                clientName: session?.user?.name,
-                clientEmail: session?.user?.email,
-                amount: totalAmt,
-                status: 0
-            });
+    const createOrder = async (orderData: {orderData:OrderData}) => {
+        try {
+            const res = await axios.post("http://localhost:3000/api/order", orderData);
+    
             if (res.status === 201) {
-                console.log(res.status)
-              }
-           } catch (err) {
-            console.log(err);
+                handleCheckout();
+                console.log(res.status);
+            } else {
+                router.push("/error");
+            }
+        } catch (error) {
+            console.error("Error creating order:", error);
         }
-        }
+    };
+
 
     // Stripe Payment
     const stripePromise = loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
     );
-    const handleCheckout = async () => {
+    const handleCheckout = async () => { 
         const stripe = await stripePromise;
         const response = await fetch("http://localhost:3000/api/checkout", {
           method: "POST",
@@ -98,7 +106,6 @@ const Cart = () => {
     
         if (response.ok) {
           // await dispatch(saveOrder({ order: productData, id: data.id }));
-          createOrder();  
           stripe?.redirectToCheckout({ sessionId: data.id });
           dispatch(resetCart());
         } else {
@@ -224,7 +231,7 @@ const Cart = () => {
                     Total Price{" "} <span><FormatedPrice amount={totalAmt}/></span>
                 </p>
                 <button
-                onClick={handleCheckout}
+                onClick={() => createOrder()}
                 className='bg-zinc-800 text-zinc-200 my-2 py-2 uppercase text-center 
                 rounded-md font-semibold hover:bg-black hover:text-white duration-200'
                 >

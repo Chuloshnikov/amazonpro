@@ -10,7 +10,10 @@ const OrderSchema = new mongoose.Schema({
     },
     status: {
         type: Number, default: 0,
-    },
+    }, 
+    amount: {
+        type: Number, required: true,
+    }, 
     productData: {
         type:[{
             brand: {
