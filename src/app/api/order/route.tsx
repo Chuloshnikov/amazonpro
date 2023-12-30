@@ -2,11 +2,12 @@ import Order from "../../../models/Order";
 import mongoose from "mongoose";
 import { OrderData } from '../../../../type';
 import { NextResponse, NextRequest } from "next/server";
+import dbConnect from "@/lib/dbConnect";
 
 
 export const POST = async (request:NextRequest) => {
 
-    mongoose.connect(process.env.MONGO_URL);
+    await dbConnect();
     const data = await request.json();
 
     try {
