@@ -11,14 +11,11 @@ export const POST = async (request:NextRequest) => {
     const data = await request.json();
 
     try {
-      const order = await Order.create(data);
+    const order = await Order.create(data);
   
-      return new NextResponse(JSON.stringify({ order }, null, 2), { status: 201 });
+    return new NextResponse(JSON.stringify({ order }, null, 2), { status: 201 });
     } catch (err) {
-      console.log(err);
-      return new NextResponse(
-        JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
-      );
+    return new NextResponse(JSON.stringify({ message: "Something went wrong!" }), { status: 500 });
     }
   };
 
