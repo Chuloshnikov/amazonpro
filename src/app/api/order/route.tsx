@@ -13,7 +13,7 @@ export const POST = async (request:NextRequest) => {
     try {
       const order = await Order.create(data);
   
-      return new NextResponse(JSON.stringify(order, { status: 201 }));
+      return new NextResponse(JSON.stringify({ order }, null, 2), { status: 201 });
     } catch (err) {
       console.log(err);
       return new NextResponse(
