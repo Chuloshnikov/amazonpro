@@ -8,7 +8,7 @@ const OrderSchema = new mongoose.Schema({
     clientEmail: {
         type: String, required: true, maxlength: 60
     },
-    status: {
+    orderStatus: {
         type: Number, default: 0,
     }, 
     amount: {

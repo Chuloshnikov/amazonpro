@@ -58,24 +58,23 @@ const Cart = () => {
         setRowPrice(rowAmt);
     }, [productData]);
 
-
+    console.log(productData)
 
     //Order DB create
-    
-    const orderData = {
-        productData: productData,
-        clientName: session?.user?.name,
-        clientEmail: session?.user?.email,
-        amount: totalAmt,
-        status: 0
-    };
-    
-    console.log(orderData);
 
-    const createOrder = async (orderData: {orderData:OrderData}) => {
+    const createOrder = async () => {
         try {
-            const res = await axios.post("http://localhost:3000/api/order", orderData);
-    
+            const res = await fetch("/api/order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    productData,
+                    clientName: session?.user?.name,
+                    clientEmail: session?.user?.email,
+                    amount: totalAmt,
+                    orderStatus: 0
+                  }),
+            });
             if (res.status === 201) {
                 handleCheckout();
                 console.log(res.status);
@@ -231,7 +230,7 @@ const Cart = () => {
                     Total Price{" "} <span><FormatedPrice amount={totalAmt}/></span>
                 </p>
                 <button
-                onClick={() => createOrder()}
+                onClick={() => handleCheckout()}
                 className='bg-zinc-800 text-zinc-200 my-2 py-2 uppercase text-center 
                 rounded-md font-semibold hover:bg-black hover:text-white duration-200'
                 >

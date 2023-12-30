@@ -1,32 +1,18 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import Order from "../../../models/Order";
-import dbConnect from "../../../lib/dbConnect";
+import mongoose from "mongoose";
 import { OrderData } from '../../../../type';
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 
-export const POST = async (req:NextApiRequest) => {
+export const POST = async (request:NextRequest) => {
 
-    dbConnect();
-    
+    mongoose.connect(process.env.MONGO_URL);
+    const data = await request.json();
 
     try {
-        const {
-            clientName,
-            clientEmail,
-            productData,
-            amount,
-            status
-        } = req.body;
-      const order = await Order.create({
-            clientName,
-            clientEmail,
-            productData,
-            amount,
-            status
-      });
+      const order = await Order.create(data);
   
-      return new NextApiResponse(JSON.stringify(order, { status: 201 }));
+      return new NextResponse(JSON.stringify(order, { status: 201 }));
     } catch (err) {
       console.log(err);
       return new NextResponse(
