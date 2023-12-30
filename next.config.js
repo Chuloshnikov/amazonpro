@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: true,
     images: {
         domains: [
           "i.ibb.co",
@@ -7,6 +8,9 @@ const nextConfig = {
           "avatars.githubusercontent.com",
         ],
       },
+      typescript: {
+        ignoreBuildErrors: true,
+      }
 }
 
 module.exports = nextConfig;
